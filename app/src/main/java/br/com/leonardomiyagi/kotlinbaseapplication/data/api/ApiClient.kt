@@ -29,7 +29,7 @@ class ApiClient(val apiService: ApiService) {
                     is RequestException -> Single.error(t)
                     is SocketTimeoutException -> Single.error(RequestException.timeoutError(t))
                     is IOException -> Single.error(RequestException.networkError(t))
-                    else -> Single.error(t)
+                    else -> Single.error(RequestException.unexpectedError(t))
                 }
             })
         }
