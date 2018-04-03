@@ -10,7 +10,7 @@ import dagger.android.AndroidInjector
  * Created by lmiyagi on 11/8/17.
  */
 @ActivityScoped
-@Subcomponent(modules = arrayOf(MainComponent.MainModule::class))
+@Subcomponent(modules = [(MainComponent.MainModule::class)])
 interface MainComponent : AndroidInjector<MainActivity> {
 
     @Subcomponent.Builder
@@ -20,7 +20,6 @@ interface MainComponent : AndroidInjector<MainActivity> {
     abstract class MainModule {
 
         @Binds
-        @ActivityScoped
         abstract fun bindPresenter(presenter: MainPresenter): MainContract.Presenter
     }
 }
