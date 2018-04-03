@@ -4,7 +4,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import br.com.leonardomiyagi.kotlinbaseapplication.R
 import br.com.leonardomiyagi.kotlinbaseapplication.databinding.ActivityMainBinding
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.base.BaseActivity
+import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.BaseActivity
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainContract.View {

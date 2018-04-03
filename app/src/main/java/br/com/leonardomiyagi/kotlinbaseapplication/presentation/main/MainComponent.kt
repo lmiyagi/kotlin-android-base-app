@@ -1,6 +1,6 @@
 package br.com.leonardomiyagi.kotlinbaseapplication.presentation.main
 
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.graph.ActivityScoped
+import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.graph.ActivityScoped
 import dagger.Binds
 import dagger.Module
 import dagger.Subcomponent

@@ -21,12 +21,12 @@ class RequestException private constructor(private val errorCode: Int?,
         }
 
         fun timeoutError(exception: SocketTimeoutException): RequestException {
-            return RequestException(null, "Tempo limite de requisição excedido.", ErrorType.TIMEOUT, exception)
+            return RequestException(null, null, ErrorType.TIMEOUT, exception)
         }
 
         fun unexpectedError(throwable: Throwable): RequestException {
             throwable.printStackTrace()
-            return RequestException(null, throwable.message ?: "Ocorreu um erro inesperado.", ErrorType.UNEXPECTED, throwable)
+            return RequestException(null, throwable.message, ErrorType.UNEXPECTED, throwable)
         }
     }
 
@@ -43,7 +43,7 @@ class RequestException private constructor(private val errorCode: Int?,
     }
 
     fun isUnauthorizedError(): Boolean {
-        return isHttpError() && getHtppError() == HttpError.UNAUTHORIZED
+        return isHttpError() && HttpError.getErrorForCode(errorCode) == HttpError.UNAUTHORIZED
     }
 
     fun getErrorMessage(): String? {
@@ -55,24 +55,11 @@ class RequestException private constructor(private val errorCode: Int?,
     }
 
     fun isTimeOutException(): Boolean {
-        return errorType == ErrorType.TIMEOUT || getHtppError() == HttpError.TIMEOUT
+        return errorType == ErrorType.TIMEOUT || HttpError.getErrorForCode(errorCode) == HttpError.TIMEOUT
     }
 
     private enum class ErrorType {
         HTTP, NETWORK, UNEXPECTED, TIMEOUT
-    }
-
-    fun getHtppError(): HttpError {
-        return when (errorCode) {
-            400 -> HttpError.BAD_REQUEST
-            401 -> HttpError.UNAUTHORIZED
-            403 -> HttpError.FORBIDDEN
-            404 -> HttpError.NOT_FOUND
-            408 -> HttpError.TIMEOUT
-            422 -> HttpError.UNPROCESSABLE_ENTITY
-            500 -> HttpError.INTERNAL_SERVER_ERROR
-            else -> HttpError.UNEXPECTED_ERROR
-        }
     }
 
     enum class HttpError {
@@ -83,6 +70,24 @@ class RequestException private constructor(private val errorCode: Int?,
         TIMEOUT,
         UNPROCESSABLE_ENTITY,
         INTERNAL_SERVER_ERROR,
-        UNEXPECTED_ERROR
+        UNEXPECTED_ERROR;
+
+        companion object {
+            fun getErrorForCode(errorCode: Int?): HttpError {
+                errorCode?.let {
+                    return when (it) {
+                        400 -> BAD_REQUEST
+                        401 -> UNAUTHORIZED
+                        403 -> FORBIDDEN
+                        404 -> NOT_FOUND
+                        408 -> TIMEOUT
+                        422 -> UNPROCESSABLE_ENTITY
+                        500 -> INTERNAL_SERVER_ERROR
+                        else -> UNEXPECTED_ERROR
+                    }
+                }
+                return UNEXPECTED_ERROR
+            }
+        }
     }
 }

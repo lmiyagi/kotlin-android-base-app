@@ -1,4 +1,4 @@
-package br.com.leonardomiyagi.kotlinbaseapplication.presentation.graph
+package br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.graph
 
 import android.app.Activity
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.main.MainActivity

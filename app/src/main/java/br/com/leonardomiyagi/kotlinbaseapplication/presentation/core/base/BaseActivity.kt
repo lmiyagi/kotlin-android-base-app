@@ -1,4 +1,4 @@
-package br.com.leonardomiyagi.kotlinbaseapplication.presentation.base
+package br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

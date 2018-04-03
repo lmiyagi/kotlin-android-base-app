@@ -1,4 +1,4 @@
-package br.com.leonardomiyagi.kotlinbaseapplication.presentation.graph
+package br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.graph
 
 import javax.inject.Scope
 
