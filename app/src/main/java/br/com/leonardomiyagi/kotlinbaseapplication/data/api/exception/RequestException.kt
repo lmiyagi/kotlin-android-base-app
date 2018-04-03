@@ -1,4 +1,4 @@
-package br.com.leonardomiyagi.kotlinbaseapplication.data.utils
+package br.com.leonardomiyagi.kotlinbaseapplication.data.api.exception
 
 import java.io.IOException
 import java.net.SocketTimeoutException

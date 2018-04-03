@@ -28,4 +28,8 @@ class MainActivity : BaseActivity(), MainContract.View {
         presenter.detachView()
         super.onStop()
     }
+
+    override fun renderMessage(message: String) {
+        binding.messageTextView.text = message
+    }
 }

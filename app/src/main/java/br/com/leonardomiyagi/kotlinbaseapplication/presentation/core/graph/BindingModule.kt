@@ -12,7 +12,7 @@ import dagger.multibindings.IntoMap
 /**
  * Created by lmiyagi on 11/8/17.
  */
-@Module(subcomponents = arrayOf(MainComponent::class))
+@Module(subcomponents = [(MainComponent::class)])
 abstract class BindingModule {
 
     @Binds

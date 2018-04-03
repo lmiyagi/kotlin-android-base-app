@@ -6,6 +6,7 @@ package br.com.leonardomiyagi.kotlinbaseapplication.presentation.main
 interface MainContract {
 
     interface View {
+        fun renderMessage(message: String)
 
     }
 

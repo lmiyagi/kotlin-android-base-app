@@ -1,6 +1,6 @@
 package br.com.leonardomiyagi.kotlinbaseapplication.data.api
 
-import br.com.leonardomiyagi.kotlinbaseapplication.data.utils.RequestException
+import br.com.leonardomiyagi.kotlinbaseapplication.data.api.exception.RequestException
 import io.reactivex.Single
 import io.reactivex.SingleTransformer
 import retrofit2.Response

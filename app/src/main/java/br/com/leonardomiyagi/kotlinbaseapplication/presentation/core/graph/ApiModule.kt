@@ -11,7 +11,6 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
-import javax.inject.Singleton
 
 /**
  * Created by lmiyagi on 11/8/17.
@@ -20,13 +19,11 @@ import javax.inject.Singleton
 class ApiModule {
 
     @Provides
-    @Singleton
     fun provideHtppLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     }
 
     @Provides
-    @Singleton
     fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
                 .addNetworkInterceptor(httpLoggingInterceptor)
@@ -34,7 +31,6 @@ class ApiModule {
     }
 
     @Provides
-    @Singleton
     fun provideRetrofit(@Named(AppConstants.API_BASE_URL) baseUrl: String, okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .baseUrl(baseUrl)
@@ -45,13 +41,11 @@ class ApiModule {
     }
 
     @Provides
-    @Singleton
     fun provideApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
 
     @Provides
-    @Singleton
     fun provideApiClient(apiService: ApiService): ApiClient {
         return ApiClient(apiService)
     }
