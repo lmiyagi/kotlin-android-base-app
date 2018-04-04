@@ -1,13 +1,13 @@
 package br.com.leonardomiyagi.kotlinbaseapplication.presentation.main
 
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.LoadableView
+import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.RequestView
 
 /**
  * Created by lmiyagi on 11/8/17.
  */
 interface MainContract {
 
-    interface View : LoadableView {
+    interface View : RequestView {
         fun renderMessage(message: String)
 
     }

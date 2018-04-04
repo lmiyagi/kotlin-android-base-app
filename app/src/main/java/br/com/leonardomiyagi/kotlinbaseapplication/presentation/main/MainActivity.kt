@@ -41,4 +41,8 @@ class MainActivity : BaseActivity(), MainContract.View {
     override fun hideLoading() {
         binding.placeholders?.data = PlaceholderData.hideAll()
     }
+
+    override fun showError(error: Throwable, tryAgainAction: (() -> Unit)?) {
+        binding.placeholders?.data = PlaceholderData.error(this, error.message, tryAgainAction)
+    }
 }

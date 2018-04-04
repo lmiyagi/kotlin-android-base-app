@@ -52,29 +52,31 @@ class PlaceholderData private constructor(private val context: Context? = null,
         fun unexpectedError(context: Context) =
                 PlaceholderData(message = context.getString(R.string.global_unexpected_error))
 
-        fun unexpectedError(context: Context, tryAgainAction: () -> Unit) =
+        fun unexpectedError(context: Context, tryAgainAction: (() -> Unit)? = null) =
                 PlaceholderData(message = context.getString(R.string.global_unexpected_error),
                         tryAgain = true,
                         tryAgainAction = tryAgainAction)
 
-        fun error(context: Context, message: String, tryAgainAction: () -> Unit) =
+        fun error(context: Context, message: String? = null, tryAgainAction: (() -> Unit)? = null) =
                 PlaceholderData(message = message,
                         tryAgain = true,
                         tryAgainAction = tryAgainAction)
 
-        fun error(context: Context, @StringRes message: Int, tryAgainAction: () -> Unit) =
-                PlaceholderData(message = context.getString(message),
+        fun error(context: Context, @StringRes message: Int? = null, tryAgainAction: (() -> Unit)? = null) =
+                PlaceholderData(message = if (message == null) null else context.getString(message),
                         tryAgain = true,
                         tryAgainAction = tryAgainAction)
 
-        fun error(context: Context, message: String, @DrawableRes icon: Int, tryAgainAction: () -> Unit) =
-                PlaceholderData(message = message,
+        fun error(context: Context, message: String, @DrawableRes icon: Int, tryAgainAction: (() -> Unit)? = null) =
+                PlaceholderData(context = context,
+                        message = message,
                         icon = icon,
                         tryAgain = true,
                         tryAgainAction = tryAgainAction)
 
-        fun error(context: Context, @StringRes message: Int, @DrawableRes icon: Int, tryAgainAction: () -> Unit) =
-                PlaceholderData(message = context.getString(message),
+        fun error(context: Context, @StringRes message: Int, @DrawableRes icon: Int, tryAgainAction: (() -> Unit)? = null) =
+                PlaceholderData(context = context,
+                        message = context.getString(message),
                         icon = icon,
                         tryAgain = true,
                         tryAgainAction = tryAgainAction)

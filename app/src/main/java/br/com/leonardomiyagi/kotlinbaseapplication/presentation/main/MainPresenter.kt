@@ -27,15 +27,13 @@ class MainPresenter @Inject constructor(private val getMainMessage: GetMainMessa
                 .doOnSubscribe {
                     view?.showLoading()
                 }
-                .doAfterTerminate {
-                    view?.hideLoading()
-                }
                 .subscribeBy(
                         onSuccess = {
+                            view?.hideLoading()
                             view?.renderMessage(it)
                         },
                         onError = {
-                            // todo implement errors
+                            view?.showError(it, this::getMainMessage)
                         }
                 )
     }
