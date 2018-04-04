@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Kotlin Base Application</string>
+
+    <string name="global_loading">Loading…</string>
+    <string name="global_ok">OK</string>
+    <string name="global_yes">Yes</string>
+    <string name="global_np">No</string>
+    <string name="global_try_again">Try Again</string>
+    <string name="global_cancel">Cancel</string>
+    <string name="global_warning">Warning</string>
+    <string name="global_op_failure">Operation Failed</string>
+    <string name="global_unexpected_error">An unexpected error occurred. Please try again later. If the problem persists, please contact us.</string>
+
 </resources>

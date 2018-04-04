@@ -1,6 +1,7 @@
 package br.com.leonardomiyagi.kotlinbaseapplication.presentation.main
 
 import br.com.leonardomiyagi.kotlinbaseapplication.domain.main.GetMainMessage
+import br.com.leonardomiyagi.kotlinbaseapplication.domain.repository.Repository
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.graph.ActivityScoped
 import dagger.Binds
 import dagger.Module
@@ -28,8 +29,8 @@ interface MainComponent : AndroidInjector<MainActivity> {
         companion object {
 
             @Provides
-            fun provideGetMainMessage(): GetMainMessage {
-                return GetMainMessage()
+            fun provideGetMainMessage(repository: Repository): GetMainMessage {
+                return GetMainMessage(repository)
             }
         }
     }

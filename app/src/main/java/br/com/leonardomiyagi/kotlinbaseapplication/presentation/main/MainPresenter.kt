@@ -24,6 +24,12 @@ class MainPresenter @Inject constructor(private val getMainMessage: GetMainMessa
 
     private fun getMainMessage() {
         interactorHelper.execute(getMainMessage)
+                .doOnSubscribe {
+                    view?.showLoading()
+                }
+                .doAfterTerminate {
+                    view?.hideLoading()
+                }
                 .subscribeBy(
                         onSuccess = {
                             view?.renderMessage(it)

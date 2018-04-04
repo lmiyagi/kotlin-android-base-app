@@ -5,6 +5,7 @@ import android.os.Bundle
 import br.com.leonardomiyagi.kotlinbaseapplication.R
 import br.com.leonardomiyagi.kotlinbaseapplication.databinding.ActivityMainBinding
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.BaseActivity
+import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.databinding.PlaceholderData
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainContract.View {
@@ -31,5 +32,13 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun renderMessage(message: String) {
         binding.messageTextView.text = message
+    }
+
+    override fun showLoading() {
+        binding.placeholders?.data = PlaceholderData.loading(this)
+    }
+
+    override fun hideLoading() {
+        binding.placeholders?.data = PlaceholderData.hideAll()
     }
 }
