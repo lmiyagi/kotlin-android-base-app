@@ -6,10 +6,10 @@ import java.net.SocketTimeoutException
 /**
  * Created by lmiyagi on 11/8/17.
  */
-class RequestException private constructor(private val errorCode: Int?,
-                                           private val errorMessage: String?,
-                                           private val errorType: ErrorType,
-                                           private val throwable: Throwable?) : Exception() {
+class RequestException private constructor(val errorCode: Int?,
+                                           val errorMessage: String?,
+                                           val errorType: ErrorType,
+                                           val throwable: Throwable?) : Exception() {
 
     companion object {
         fun httpError(errorCode: Int, errorMessage: String?): RequestException {
@@ -44,14 +44,6 @@ class RequestException private constructor(private val errorCode: Int?,
 
     fun isUnauthorizedError(): Boolean {
         return isHttpError() && HttpError.getErrorForCode(errorCode) == HttpError.UNAUTHORIZED
-    }
-
-    fun getErrorMessage(): String? {
-        return errorMessage
-    }
-
-    fun getThrowable(): Throwable? {
-        return throwable
     }
 
     fun isTimeOutException(): Boolean {

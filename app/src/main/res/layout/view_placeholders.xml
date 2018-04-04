@@ -43,7 +43,7 @@
             android:textAlignment="center"
             android:textSize="16sp"
             android:visibility="@{data.message == null || data.message.trim().empty ? View.GONE : View.VISIBLE}"
-            tools:text="@string/global_unexpected_error" />
+            tools:text="@string/error_unexpected" />
 
         <Button
             android:layout_width="wrap_content"

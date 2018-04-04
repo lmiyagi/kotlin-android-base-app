@@ -1,7 +1,10 @@
 package br.com.leonardomiyagi.kotlinbaseapplication.data.repository
 
+import br.com.leonardomiyagi.kotlinbaseapplication.data.api.exception.RequestException
 import br.com.leonardomiyagi.kotlinbaseapplication.domain.repository.Repository
 import io.reactivex.Single
+import java.io.IOException
+import java.net.SocketTimeoutException
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 

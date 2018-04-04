@@ -50,10 +50,10 @@ class PlaceholderData private constructor(private val context: Context? = null,
                         message = context.getString(error))
 
         fun unexpectedError(context: Context) =
-                PlaceholderData(message = context.getString(R.string.global_unexpected_error))
+                PlaceholderData(message = context.getString(R.string.error_unexpected))
 
         fun unexpectedError(context: Context, tryAgainAction: (() -> Unit)? = null) =
-                PlaceholderData(message = context.getString(R.string.global_unexpected_error),
+                PlaceholderData(message = context.getString(R.string.error_unexpected),
                         tryAgain = true,
                         tryAgainAction = tryAgainAction)
 
@@ -74,9 +74,9 @@ class PlaceholderData private constructor(private val context: Context? = null,
                         tryAgain = true,
                         tryAgainAction = tryAgainAction)
 
-        fun error(context: Context, @StringRes message: Int, @DrawableRes icon: Int, tryAgainAction: (() -> Unit)? = null) =
+        fun error(context: Context, @StringRes message: Int?, @DrawableRes icon: Int?, tryAgainAction: (() -> Unit)? = null) =
                 PlaceholderData(context = context,
-                        message = context.getString(message),
+                        message = if (message == null) null else context.getString(message),
                         icon = icon,
                         tryAgain = true,
                         tryAgainAction = tryAgainAction)

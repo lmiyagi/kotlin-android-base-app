@@ -6,6 +6,7 @@ import br.com.leonardomiyagi.kotlinbaseapplication.R
 import br.com.leonardomiyagi.kotlinbaseapplication.databinding.ActivityMainBinding
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.BaseActivity
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.databinding.PlaceholderData
+import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.ErrorHandler
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainContract.View {
@@ -43,6 +44,6 @@ class MainActivity : BaseActivity(), MainContract.View {
     }
 
     override fun showError(error: Throwable, tryAgainAction: (() -> Unit)?) {
-        binding.placeholders?.data = PlaceholderData.error(this, error.message, tryAgainAction)
+        binding.placeholders?.data = ErrorHandler.handleError(this, error, tryAgainAction)
     }
 }
