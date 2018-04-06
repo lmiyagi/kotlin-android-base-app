@@ -19,16 +19,13 @@ class MainActivity : BaseActivity(), MainContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        presenter.onViewCreated()
     }
 
-    override fun onStart() {
-        super.onStart()
-        presenter.attachView(this)
-    }
-
-    override fun onStop() {
-        presenter.detachView()
-        super.onStop()
+    override fun onDestroy() {
+        presenter.onViewDestroyed()
+        super.onDestroy()
     }
 
     override fun renderMessage(message: String) {

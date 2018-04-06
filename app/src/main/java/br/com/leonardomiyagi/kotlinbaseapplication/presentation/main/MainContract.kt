@@ -13,7 +13,7 @@ interface MainContract {
     }
 
     interface Presenter {
-        fun attachView(view: View)
-        fun detachView()
+        fun onViewCreated()
+        fun onViewDestroyed()
     }
 }

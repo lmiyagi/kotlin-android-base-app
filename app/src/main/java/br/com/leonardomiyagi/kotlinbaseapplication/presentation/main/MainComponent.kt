@@ -23,6 +23,9 @@ interface MainComponent : AndroidInjector<MainActivity> {
     abstract class MainModule {
 
         @Binds
+        abstract fun bindView(activity: MainActivity): MainContract.View
+
+        @Binds
         abstract fun bindPresenter(presenter: MainPresenter): MainContract.Presenter
 
         @Module
