@@ -20,12 +20,16 @@ class MainActivity : BaseActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        presenter.onViewCreated()
+        presenter.attachView(this)
     }
 
     override fun onDestroy() {
-        presenter.onViewDestroyed()
+        presenter.detachView()
         super.onDestroy()
+    }
+
+    override fun closeView() {
+        finish()
     }
 
     override fun renderMessage(message: String) {

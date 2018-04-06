@@ -8,30 +8,32 @@ import javax.inject.Inject
 /**
  * Created by lmiyagi on 11/8/17.
  */
-class MainPresenter @Inject constructor(private val view: MainContract.View,
-                                        private val getMainMessage: GetMainMessage)
+class MainPresenter @Inject constructor(private val getMainMessage: GetMainMessage)
     : BasePresenter(), MainContract.Presenter {
 
-    override fun onViewCreated() {
+    private var view: MainContract.View? = null
+
+    override fun attachView(view: MainContract.View) {
+        this.view = view
         getMainMessage()
     }
 
-    override fun onViewDestroyed() {
+    override fun detachView() {
         onDetachView()
     }
 
     private fun getMainMessage() {
         val getMainMessageDisposable = interactorHelper.execute(getMainMessage)
                 .doOnSubscribe {
-                    view.showLoading()
+                    view?.showLoading()
                 }
                 .subscribeBy(
                         onSuccess = {
-                            view.hideLoading()
-                            view.renderMessage(it)
+                            view?.hideLoading()
+                            view?.renderMessage(it)
                         },
                         onError = {
-                            view.showError(it, this::getMainMessage)
+                            view?.showError(it, this::getMainMessage)
                         }
                 )
         disposables.add(getMainMessageDisposable)

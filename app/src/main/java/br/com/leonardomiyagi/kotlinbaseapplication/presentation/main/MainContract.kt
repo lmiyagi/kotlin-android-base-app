@@ -1,5 +1,6 @@
 package br.com.leonardomiyagi.kotlinbaseapplication.presentation.main
 
+import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.BaseContract
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.RequestView
 
 /**
@@ -7,13 +8,10 @@ import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.Reques
  */
 interface MainContract {
 
-    interface View : RequestView {
+    interface View : BaseContract.View, RequestView {
         fun renderMessage(message: String)
-
     }
 
-    interface Presenter {
-        fun onViewCreated()
-        fun onViewDestroyed()
+    interface Presenter : BaseContract.Presenter<View> {
     }
 }
