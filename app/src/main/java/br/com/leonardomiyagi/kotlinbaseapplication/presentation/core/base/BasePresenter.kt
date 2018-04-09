@@ -5,7 +5,9 @@ import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.Interactor
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-abstract class BasePresenter {
+abstract class BasePresenter<View : BaseContract.View> {
+
+    protected var view: View? = null
 
     protected val disposables = CompositeDisposable()
 
