@@ -20,14 +20,12 @@ open class BasePresenterTest<View : BaseContract.View, Presenter : BasePresenter
     private lateinit var schedulerProvider: SchedulerProvider
     @Mock
     protected lateinit var interactorHelper: InteractorHelper
-    @Mock
-    protected lateinit var view: View
 
     protected lateinit var presenter: Presenter
 
-    protected fun setupPresenter(presenter: Presenter) {
+    protected fun setupPresenter(view: View, presenter: Presenter) {
         this.presenter = presenter
-        // todo fix view issues
+
         val viewField = presenter.javaClass.superclass.getDeclaredField("view")
         viewField.isAccessible = true
         viewField.set(presenter, view)

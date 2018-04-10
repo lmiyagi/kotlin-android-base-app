@@ -21,10 +21,12 @@ class MainPresenterTest : BasePresenterTest<MainContract.View, MainPresenter>() 
 
     @Mock
     private lateinit var getMainMessage: GetMainMessage
+    @Mock
+    private lateinit var view: MainContract.View
 
     @Before
     fun setUp() {
-        super.setupPresenter(MainPresenter(getMainMessage))
+        super.setupPresenter(view, MainPresenter(getMainMessage))
     }
 
     @Test
