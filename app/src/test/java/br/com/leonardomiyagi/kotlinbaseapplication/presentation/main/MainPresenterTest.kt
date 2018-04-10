@@ -30,7 +30,7 @@ class MainPresenterTest : BasePresenterTest<MainContract.View, MainPresenter>() 
     }
 
     @Test
-    fun testAttachView_success() {
+    fun attachViewTest_success() {
         val expectedMessage = "This message is expected to be sent by the Repository"
         whenever(interactorHelper.execute(getMainMessage)).thenReturn(Single.just(expectedMessage))
         presenter.attachView(view)
@@ -39,7 +39,7 @@ class MainPresenterTest : BasePresenterTest<MainContract.View, MainPresenter>() 
     }
 
     @Test
-    fun testAttachView_error() {
+    fun attachViewTest_error() {
         val captor = argumentCaptor<() -> Unit>()
 
         val errorMessage = "Error Message"

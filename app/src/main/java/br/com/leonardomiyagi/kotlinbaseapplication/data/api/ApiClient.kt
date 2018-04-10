@@ -6,6 +6,7 @@ import io.reactivex.SingleTransformer
 import retrofit2.Response
 import java.io.IOException
 import java.net.SocketTimeoutException
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by lmiyagi on 11/8/17.
@@ -39,5 +40,9 @@ class ApiClient(val apiService: ApiService) {
         return SingleTransformer { upstream ->
             upstream.map(Response<T>::body)
         }
+    }
+
+    fun getMessage(): Single<String> {
+        return Single.just("This message is coming from the API!").delay(3, TimeUnit.SECONDS)
     }
 }

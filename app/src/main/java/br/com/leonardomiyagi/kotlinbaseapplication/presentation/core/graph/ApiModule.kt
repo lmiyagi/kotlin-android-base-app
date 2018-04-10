@@ -1,8 +1,12 @@
 package br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.graph
 
+import br.com.leonardomiyagi.kotlinbaseapplication.BuildConfig
 import br.com.leonardomiyagi.kotlinbaseapplication.data.api.ApiClient
 import br.com.leonardomiyagi.kotlinbaseapplication.data.api.ApiService
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.AppConstants
+import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.API_BASE_STAGING_URL
+import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.API_BASE_URL
+import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.DEBUG
+import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.DI_API_BASE_URL
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -19,6 +23,17 @@ import javax.inject.Named
 class ApiModule {
 
     @Provides
+    @Named(DI_API_BASE_URL)
+    fun provideBaseUrl(): String {
+        return if (BuildConfig.BUILD_TYPE.equals(DEBUG, true) ||
+                BuildConfig.BUILD_TYPE.equals(DEBUG, true)) {
+            API_BASE_STAGING_URL
+        } else {
+            API_BASE_URL
+        }
+    }
+
+    @Provides
     fun provideHtppLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     }
@@ -31,7 +46,7 @@ class ApiModule {
     }
 
     @Provides
-    fun provideRetrofit(@Named(AppConstants.API_BASE_URL) baseUrl: String, okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(@Named(DI_API_BASE_URL) baseUrl: String, okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
