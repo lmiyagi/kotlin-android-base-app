@@ -13,7 +13,6 @@ import org.mockito.junit.MockitoJUnitRunner
 /**
  * Created by lmiyagi on 09/04/18.
  */
-@RunWith(MockitoJUnitRunner::class)
 open class BasePresenterTest<View : BaseContract.View, Presenter : BasePresenter<View>> {
 
     @Mock
