@@ -12,12 +12,8 @@ class MainPresenter @Inject constructor(private val getMainMessage: GetMainMessa
     : BasePresenter<MainContract.View>(), MainContract.Presenter {
 
     override fun attachView(view: MainContract.View) {
-        this.view = view
+        super.attachView(view)
         getMainMessage()
-    }
-
-    override fun detachView() {
-        onDetachView()
     }
 
     private fun getMainMessage() {

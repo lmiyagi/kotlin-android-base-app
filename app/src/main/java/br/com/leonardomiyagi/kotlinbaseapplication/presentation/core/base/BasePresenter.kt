@@ -5,7 +5,7 @@ import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.Interactor
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-abstract class BasePresenter<View : BaseContract.View> {
+abstract class BasePresenter<View : BaseContract.View> : BaseContract.Presenter<View> {
 
     protected var view: View? = null
 
@@ -17,7 +17,12 @@ abstract class BasePresenter<View : BaseContract.View> {
     @Inject
     lateinit var interactorHelper: InteractorHelper
 
-    protected fun onDetachView() {
+    override fun attachView(view: View) {
+        this.view = view
+    }
+
+    override fun detachView() {
+        this.view = null
         disposables.clear()
     }
 }
