@@ -10,30 +10,46 @@ import br.com.leonardomiyagi.kotlinbaseapplication.R
  */
 object DialogUtils {
 
+    fun showErrorDialog(context: Context, error: Throwable, tryAgainAction: (() -> Unit)? = null) {
+        val errorPlaceholder = ErrorHandler.handleError(context, error, tryAgainAction)
+        showDialog(context,
+                context.getString(R.string.global_op_failure),
+                errorPlaceholder.message ?: context.getString(R.string.error_unexpected),
+                if (tryAgainAction == null) {
+                    context.getString(R.string.global_ok)
+                } else {
+                    context.getString(R.string.global_try_again)
+                },
+                null,
+                tryAgainAction,
+                null,
+                null)
+    }
+
     fun showOkDialog(context: Context,
                      title: String,
                      message: String,
                      okAction: (() -> Unit)? = null,
-                     dismissAction: (() -> Unit)? = null) {
+                     cancelAction: (() -> Unit)? = null) {
         showDialog(context = context,
                 title = title,
                 message = message,
                 positiveMessage = context.getString(R.string.global_ok),
                 positiveAction = okAction,
-                dismissAction = dismissAction)
+                cancelAction = cancelAction)
     }
 
     fun showOkDialog(context: Context,
                      @StringRes title: Int,
                      @StringRes message: Int,
                      okAction: (() -> Unit)? = null,
-                     dismissAction: (() -> Unit)? = null) {
+                     cancelAction: (() -> Unit)? = null) {
         showDialog(context = context,
                 title = context.getString(title),
                 message = context.getString(message),
                 positiveMessage = context.getString(R.string.global_ok),
                 positiveAction = okAction,
-                dismissAction = dismissAction)
+                cancelAction = cancelAction)
     }
 
     fun showOkCancelDialog(context: Context,
@@ -41,7 +57,7 @@ object DialogUtils {
                            message: String,
                            okAction: (() -> Unit)? = null,
                            cancelAction: (() -> Unit)? = null,
-                           dismissAction: (() -> Unit)? = null) {
+                           dialogCancelAction: (() -> Unit)? = null) {
         showDialog(context = context,
                 title = title,
                 message = message,
@@ -49,7 +65,7 @@ object DialogUtils {
                 positiveAction = okAction,
                 negativeMessage = context.getString(R.string.global_cancel),
                 negativeAction = cancelAction,
-                dismissAction = dismissAction)
+                cancelAction = dialogCancelAction)
     }
 
     fun showOkCancelDialog(context: Context,
@@ -57,7 +73,7 @@ object DialogUtils {
                            @StringRes message: Int,
                            okAction: (() -> Unit)? = null,
                            cancelAction: (() -> Unit)? = null,
-                           dismissAction: (() -> Unit)? = null) {
+                           dialogCancelAction: (() -> Unit)? = null) {
         showDialog(context = context,
                 title = context.getString(title),
                 message = context.getString(message),
@@ -65,7 +81,7 @@ object DialogUtils {
                 positiveAction = okAction,
                 negativeMessage = context.getString(R.string.global_cancel),
                 negativeAction = cancelAction,
-                dismissAction = dismissAction)
+                cancelAction = dialogCancelAction)
     }
 
     fun showDialog(context: Context,
@@ -75,7 +91,7 @@ object DialogUtils {
                    negativeMessage: String? = null,
                    positiveAction: (() -> Unit)? = null,
                    negativeAction: (() -> Unit)? = null,
-                   dismissAction: (() -> Unit)? = null) {
+                   cancelAction: (() -> Unit)? = null) {
 
         val builder = AlertDialog.Builder(context)
         builder.apply {
@@ -85,8 +101,10 @@ object DialogUtils {
             negativeMessage?.let {
                 setNegativeButton(it, { _, _ -> negativeAction?.invoke() })
             }
-            setOnDismissListener { dismissAction?.invoke() }
+            setOnCancelListener { cancelAction?.invoke() }
         }
-        builder.create().show()
+        val dialog = builder.create()
+        dialog.setCanceledOnTouchOutside(true)
+        dialog.show()
     }
 }

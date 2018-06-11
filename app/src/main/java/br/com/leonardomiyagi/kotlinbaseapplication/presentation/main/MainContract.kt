@@ -1,6 +1,7 @@
 package br.com.leonardomiyagi.kotlinbaseapplication.presentation.main
 
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.BaseContract
+import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.BasePresenter
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.RequestView
 
 /**
@@ -12,6 +13,6 @@ interface MainContract {
         fun renderMessage(message: String)
     }
 
-    interface Presenter : BaseContract.Presenter<View> {
+    abstract class Presenter : BasePresenter<View>() {
     }
 }

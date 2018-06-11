@@ -6,7 +6,7 @@ import br.com.leonardomiyagi.kotlinbaseapplication.R
 import br.com.leonardomiyagi.kotlinbaseapplication.databinding.ActivityMainBinding
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.BaseActivity
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.databinding.PlaceholderData
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.ErrorHandler
+import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.DialogUtils
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainContract.View {
@@ -28,10 +28,6 @@ class MainActivity : BaseActivity(), MainContract.View {
         super.onDestroy()
     }
 
-    override fun closeView() {
-        finish()
-    }
-
     override fun renderMessage(message: String) {
         binding.messageTextView.text = message
     }
@@ -45,6 +41,6 @@ class MainActivity : BaseActivity(), MainContract.View {
     }
 
     override fun showError(error: Throwable, tryAgainAction: (() -> Unit)?) {
-        binding.placeholders?.data = ErrorHandler.handleError(this, error, tryAgainAction)
+        DialogUtils.showErrorDialog(this, error, tryAgainAction)
     }
 }

@@ -3,12 +3,9 @@ package br.com.leonardomiyagi.kotlinbaseapplication.core
 import br.com.leonardomiyagi.kotlinbaseapplication.domain.provider.SchedulerProvider
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.BaseContract
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.BasePresenter
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.InteractorHelper
 import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.schedulers.Schedulers
-import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.junit.MockitoJUnitRunner
 
 /**
  * Created by lmiyagi on 09/04/18.
@@ -17,23 +14,20 @@ open class BasePresenterTest<View : BaseContract.View, Presenter : BasePresenter
 
     @Mock
     private lateinit var schedulerProvider: SchedulerProvider
-    @Mock
-    protected lateinit var interactorHelper: InteractorHelper
 
     protected lateinit var presenter: Presenter
 
     protected fun setupPresenter(view: View, presenter: Presenter) {
         this.presenter = presenter
 
-        val viewField = presenter.javaClass.superclass.getDeclaredField("view")
+        val viewField = presenter.javaClass.superclass.superclass.getDeclaredField("view")
         viewField.isAccessible = true
         viewField.set(presenter, view)
 
-        val schedulperProviderField = InteractorHelper::class.java.getDeclaredField("schedulers")
-        schedulperProviderField.isAccessible = true
-        schedulperProviderField.set(interactorHelper, schedulerProvider)
+        val schedulersField = presenter.javaClass.superclass.superclass.getDeclaredField("schedulers")
+        schedulersField.isAccessible = true
+        schedulersField.set(presenter, schedulerProvider)
 
-        presenter.interactorHelper = interactorHelper
         whenever(schedulerProvider.io()).thenReturn(Schedulers.trampoline())
         whenever(schedulerProvider.main()).thenReturn(Schedulers.trampoline())
     }
