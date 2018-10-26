@@ -1,8 +1,8 @@
 package br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils
 
 import android.content.Context
-import android.support.annotation.DrawableRes
-import android.support.annotation.StringRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import br.com.leonardomiyagi.kotlinbaseapplication.R
 import br.com.leonardomiyagi.kotlinbaseapplication.data.api.exception.RequestException
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.databinding.PlaceholderData

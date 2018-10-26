@@ -1,18 +1,17 @@
 package br.com.leonardomiyagi.kotlinbaseapplication.presentation.main
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
+import androidx.databinding.DataBindingUtil
 import br.com.leonardomiyagi.kotlinbaseapplication.R
 import br.com.leonardomiyagi.kotlinbaseapplication.databinding.ActivityMainBinding
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.BaseActivity
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.databinding.PlaceholderData
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.DialogUtils
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
 class MainActivity : BaseActivity(), MainContract.View {
 
-    @Inject
-    lateinit var presenter: MainContract.Presenter
+    private val presenter: MainContract.Presenter by inject()
 
     private lateinit var binding: ActivityMainBinding
 

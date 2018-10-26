@@ -3,7 +3,7 @@ This is the base of an Android Project with some core libs and architecture stuf
 ## This is an Android Base App using:
 * [Clean Architecture](https://medium.com/@dmilicic/a-detailed-guide-on-developing-android-apps-using-the-clean-architecture-pattern-d38d71e94029)
 * [Data Binding](https://developer.android.com/topic/libraries/data-binding/index.html)
-* [Dagger 2](https://google.github.io/dagger/)
+* [KOIN](https://github.com/InsertKoinIO/koin)
 * [Retrofit](http://square.github.io/retrofit/)
 * [RxJava](https://github.com/ReactiveX/RxJava)/[RxAndroid](https://github.com/ReactiveX/RxAndroid)/[RxKotlin](https://github.com/ReactiveX/RxKotlin)
 

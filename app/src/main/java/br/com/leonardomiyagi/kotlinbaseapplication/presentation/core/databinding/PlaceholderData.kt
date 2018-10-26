@@ -2,9 +2,9 @@ package br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.databindin
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.support.annotation.DrawableRes
-import android.support.annotation.StringRes
-import android.support.v4.content.ContextCompat
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import br.com.leonardomiyagi.kotlinbaseapplication.R
 
 /**

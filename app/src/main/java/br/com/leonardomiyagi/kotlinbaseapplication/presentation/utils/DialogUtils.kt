@@ -1,8 +1,8 @@
 package br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils
 
 import android.content.Context
-import android.support.annotation.StringRes
-import android.support.v7.app.AlertDialog
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AlertDialog
 import br.com.leonardomiyagi.kotlinbaseapplication.R
 
 /**

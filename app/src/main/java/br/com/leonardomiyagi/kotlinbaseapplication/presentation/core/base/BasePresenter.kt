@@ -7,9 +7,10 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import javax.inject.Inject
+import org.koin.standalone.KoinComponent
+import org.koin.standalone.inject
 
-abstract class BasePresenter<View : BaseContract.View> {
+abstract class BasePresenter<View : BaseContract.View> : KoinComponent {
 
     /**
      * The [View] class that is attached on [attachView]
@@ -28,8 +29,7 @@ abstract class BasePresenter<View : BaseContract.View> {
      *
      * @see [Scheduler]
      */
-    @Inject
-    protected lateinit var schedulers: SchedulerProvider
+    protected val schedulers by inject<SchedulerProvider>()
 
     /**
      * Attaches the [View] and runs [onViewAttached]

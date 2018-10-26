@@ -1,12 +1,14 @@
 package br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base
 
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import br.com.leonardomiyagi.kotlinbaseapplication.R
+import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.ACTIVITY_SCOPE
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.DialogUtils
-import dagger.android.AndroidInjection
+import org.koin.androidx.scope.ext.android.bindScope
+import org.koin.androidx.scope.ext.android.createScope
 
 /**
  * Created by lmiyagi on 11/8/17.
@@ -14,8 +16,8 @@ import dagger.android.AndroidInjection
 open class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
+        bindScope(createScope(ACTIVITY_SCOPE))
     }
 
     fun showDialog(title: String,
