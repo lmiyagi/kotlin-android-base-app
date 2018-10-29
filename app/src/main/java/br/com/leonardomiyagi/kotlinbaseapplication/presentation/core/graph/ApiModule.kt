@@ -3,10 +3,8 @@ package br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.graph
 import br.com.leonardomiyagi.kotlinbaseapplication.BuildConfig
 import br.com.leonardomiyagi.kotlinbaseapplication.data.api.ApiClient
 import br.com.leonardomiyagi.kotlinbaseapplication.data.api.ApiService
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.API_BASE_STAGING_URL
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.API_BASE_URL
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.DEBUG
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.D_API_BASE_URL
+import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.*
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module.module
@@ -21,14 +19,14 @@ val apiModule = module {
 
     single(name = D_API_BASE_URL) {
         if (BuildConfig.BUILD_TYPE.equals(DEBUG, true) ||
-                BuildConfig.BUILD_TYPE.equals(DEBUG, true)) {
+                BuildConfig.BUILD_TYPE.equals(STAGING, true)) {
             API_BASE_STAGING_URL
         } else {
             API_BASE_URL
         }
     }
 
-    single<HttpLoggingInterceptor> {
+    single<Interceptor> {
         HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     }
 
@@ -47,7 +45,7 @@ val apiModule = module {
                 .build()
     }
 
-    single<ApiService> { (retrofit: Retrofit) -> retrofit.create(ApiService::class.java) }
+    single<ApiService> { get<Retrofit>().create(ApiService::class.java) }
 
-    single { (apiService: ApiService) -> ApiClient(apiService) }
+    single { ApiClient(get()) }
 }
