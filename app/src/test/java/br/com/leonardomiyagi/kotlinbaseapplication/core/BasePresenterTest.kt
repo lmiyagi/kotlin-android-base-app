@@ -3,19 +3,42 @@ package br.com.leonardomiyagi.kotlinbaseapplication.core
 import br.com.leonardomiyagi.kotlinbaseapplication.domain.provider.SchedulerProvider
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.BaseContract
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.BasePresenter
-import com.nhaarman.mockito_kotlin.whenever
+import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
-import org.mockito.Mock
+import org.junit.After
+import org.junit.Before
+import org.koin.dsl.module.module
+import org.koin.standalone.StandAloneContext.startKoin
+import org.koin.standalone.StandAloneContext.stopKoin
+import org.koin.test.KoinTest
 
 /**
  * Created by lmiyagi on 09/04/18.
  */
-open class BasePresenterTest<View : BaseContract.View, Presenter : BasePresenter<View>> {
-
-    @Mock
-    private lateinit var schedulerProvider: SchedulerProvider
+abstract class BasePresenterTest<View : BaseContract.View, Presenter : BasePresenter<View>> : KoinTest {
 
     protected lateinit var presenter: Presenter
+
+    @Before
+    fun baseSetUp() {
+        if (!this::presenter.isInitialized) {
+            throw RuntimeException("You must setup the preseter using super.setupPresenter() on your setUp method.")
+        }
+        startKoin(listOf(appModule))
+        setUp()
+    }
+
+    @After
+    fun baseTearDown() {
+        stopKoin()
+        tearDown()
+    }
+
+    @Before
+    abstract fun setUp()
+
+    @After
+    abstract fun tearDown()
 
     protected fun setupPresenter(view: View, presenter: Presenter) {
         this.presenter = presenter
@@ -23,12 +46,5 @@ open class BasePresenterTest<View : BaseContract.View, Presenter : BasePresenter
         val viewField = presenter.javaClass.superclass.superclass.getDeclaredField("view")
         viewField.isAccessible = true
         viewField.set(presenter, view)
-
-        val schedulersField = presenter.javaClass.superclass.superclass.getDeclaredField("schedulers")
-        schedulersField.isAccessible = true
-        schedulersField.set(presenter, schedulerProvider)
-
-        whenever(schedulerProvider.io()).thenReturn(Schedulers.trampoline())
-        whenever(schedulerProvider.main()).thenReturn(Schedulers.trampoline())
     }
 }

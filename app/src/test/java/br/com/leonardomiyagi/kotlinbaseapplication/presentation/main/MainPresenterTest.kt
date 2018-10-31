@@ -7,7 +7,6 @@ import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Single
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -24,9 +23,11 @@ class MainPresenterTest : BasePresenterTest<MainContract.View, MainPresenter>() 
     @Mock
     private lateinit var view: MainContract.View
 
-    @Before
-    fun setUp() {
+    override fun setUp() {
         super.setupPresenter(view, MainPresenter(getMainMessage))
+    }
+
+    override fun tearDown() {
     }
 
     @Test
