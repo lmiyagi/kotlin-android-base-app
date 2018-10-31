@@ -9,9 +9,10 @@ This is the base of an Android Project with some core libs and architecture stuf
 * [RxJava](https://github.com/ReactiveX/RxJava)/[RxAndroid](https://github.com/ReactiveX/RxAndroid)/[RxKotlin](https://github.com/ReactiveX/RxKotlin)
 
 ## What should I do after cloning this project?
-1. Change package names, applicationId, and the desired min and target SDK versions (default is 16 and 28, respectively) to suit your application better;
-2. Update all libraries and make sure that your Kotlin, Gradle and Build Tools versions are all up to date;
-3. The MainActivity/MainPresenter has an example on how to use all the layers of the application. This is just a sample, so adjust it as you like.
+1. Change your [remote-url](https://help.github.com/articles/changing-a-remote-s-url/)
+2. Change package names, applicationId, and the desired min and target SDK versions (default is 16 and 28, respectively) to suit your application better;
+3. Update all libraries and make sure that your Kotlin, Gradle and Build Tools versions are all up to date;
+4. The MainActivity/MainPresenter has an example on how to use all the layers of the application. This is just a sample, so adjust it as you like.
 
 **You don't have to give me any credit, just have fun!**
 
