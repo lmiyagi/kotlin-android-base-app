@@ -21,11 +21,11 @@ abstract class BasePresenterTest<View : BaseContract.View, Presenter : BasePrese
 
     @Before
     fun baseSetUp() {
+        startKoin(listOf(appModule))
+        setUp()
         if (!this::presenter.isInitialized) {
             throw RuntimeException("You must setup the preseter using super.setupPresenter() on your setUp method.")
         }
-        startKoin(listOf(appModule))
-        setUp()
     }
 
     @After
@@ -34,11 +34,9 @@ abstract class BasePresenterTest<View : BaseContract.View, Presenter : BasePrese
         tearDown()
     }
 
-    @Before
-    abstract fun setUp()
+    protected abstract fun setUp()
 
-    @After
-    abstract fun tearDown()
+    protected abstract fun tearDown()
 
     protected fun setupPresenter(view: View, presenter: Presenter) {
         this.presenter = presenter
