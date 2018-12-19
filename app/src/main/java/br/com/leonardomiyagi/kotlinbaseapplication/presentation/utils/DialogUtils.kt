@@ -11,10 +11,9 @@ import br.com.leonardomiyagi.kotlinbaseapplication.R
 object DialogUtils {
 
     fun showErrorDialog(context: Context, error: Throwable, tryAgainAction: (() -> Unit)? = null) {
-        val errorPlaceholder = ErrorHandler.handleError(context, error, tryAgainAction)
         showDialog(context,
                 context.getString(R.string.global_op_failure),
-                errorPlaceholder.message ?: context.getString(R.string.error_unexpected),
+                error.message ?: context.getString(R.string.error_unexpected),
                 if (tryAgainAction == null) {
                     context.getString(R.string.global_ok)
                 } else {
