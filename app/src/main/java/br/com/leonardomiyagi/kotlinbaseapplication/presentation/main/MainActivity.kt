@@ -3,7 +3,6 @@ package br.com.leonardomiyagi.kotlinbaseapplication.presentation.main
 import android.os.Bundle
 import br.com.leonardomiyagi.kotlinbaseapplication.R
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.BaseActivity
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.DialogUtils
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.setVisibility
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.view_loading.*
@@ -38,6 +37,6 @@ class MainActivity : BaseActivity(), MainContract.View {
     }
 
     override fun showError(error: Throwable, tryAgainAction: (() -> Unit)?) {
-        DialogUtils.showErrorDialog(this, error, tryAgainAction)
+        showErrorDialog(error, tryAgainAction)
     }
 }

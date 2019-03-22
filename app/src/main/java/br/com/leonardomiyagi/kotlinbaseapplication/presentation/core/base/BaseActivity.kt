@@ -20,6 +20,10 @@ open class BaseActivity : AppCompatActivity() {
         bindScope(createScope(ACTIVITY_SCOPE))
     }
 
+    fun showErrorDialog(error: Throwable, tryAgainAction: (() -> Unit)? = null) {
+        DialogUtils.showErrorDialog(this, error, tryAgainAction)
+    }
+
     fun showDialog(title: String,
                    message: String,
                    positiveMessage: String = getString(R.string.global_ok),

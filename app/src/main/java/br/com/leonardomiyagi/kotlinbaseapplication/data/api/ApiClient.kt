@@ -15,24 +15,24 @@ class ApiClient(val apiService: ApiService) {
 
     private fun <T> verifyResponseException(): SingleTransformer<Response<T>, Response<T>> {
         return SingleTransformer { upstream ->
-            upstream.doOnSuccess({ response ->
+            upstream.doOnSuccess { response ->
                 if (!response.isSuccessful) {
                     throw RequestException.httpError(response.code(), response.message())
                 }
-            })
+            }
         }
     }
 
     private fun <T> verifyRequestException(): SingleTransformer<Response<T>, Response<T>> {
         return SingleTransformer { upstream ->
-            upstream.onErrorResumeNext({ t ->
+            upstream.onErrorResumeNext { t ->
                 when (t) {
                     is RequestException -> Single.error(t)
                     is SocketTimeoutException -> Single.error(RequestException.timeoutError(t))
                     is IOException -> Single.error(RequestException.networkError(t))
                     else -> Single.error(RequestException.unexpectedError(t))
                 }
-            })
+            }
         }
     }
 
