@@ -11,5 +11,3 @@ const val API_BASE_STAGING_URL = "http://www.someurl.com/"
 const val DEBUG = "debug"
 const val STAGING = "staging"
 const val RELEASE = "release"
-
-const val ACTIVITY_SCOPE = "ACTIVITY_SCOPE"

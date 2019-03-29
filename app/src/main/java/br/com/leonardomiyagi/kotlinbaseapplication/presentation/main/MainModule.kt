@@ -1,14 +1,16 @@
 package br.com.leonardomiyagi.kotlinbaseapplication.presentation.main
 
 import br.com.leonardomiyagi.kotlinbaseapplication.domain.main.GetMainMessage
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.ACTIVITY_SCOPE
-import org.koin.dsl.module.module
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
 
 /**
  * Created by lmiyagi on 11/8/17.
  */
 val mainModule = module {
 
-    scope<MainContract.Presenter>(ACTIVITY_SCOPE) { MainPresenter(get()) }
-    scope(ACTIVITY_SCOPE) { GetMainMessage(get()) }
+    scope(named<MainActivity>()) {
+        scoped<MainContract.Presenter> { MainPresenter(get()) }
+        scoped { GetMainMessage(get()) }
+    }
 }

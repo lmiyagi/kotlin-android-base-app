@@ -4,7 +4,7 @@ import br.com.leonardomiyagi.kotlinbaseapplication.data.repository.DefaultReposi
 import br.com.leonardomiyagi.kotlinbaseapplication.domain.provider.SchedulerProvider
 import br.com.leonardomiyagi.kotlinbaseapplication.domain.repository.Repository
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.providers.DefaultSchedulerProvider
-import org.koin.dsl.module.module
+import org.koin.dsl.module
 
 /**
  * Created by lmiyagi on 11/8/17.

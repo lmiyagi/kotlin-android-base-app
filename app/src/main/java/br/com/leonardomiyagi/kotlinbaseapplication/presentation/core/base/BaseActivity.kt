@@ -5,10 +5,9 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import br.com.leonardomiyagi.kotlinbaseapplication.R
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.ACTIVITY_SCOPE
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.DialogUtils
-import org.koin.androidx.scope.ext.android.bindScope
-import org.koin.androidx.scope.ext.android.createScope
+import org.koin.androidx.scope.bindScope
+import org.koin.androidx.scope.currentScope
 
 /**
  * Created by lmiyagi on 11/8/17.
@@ -17,7 +16,7 @@ open class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bindScope(createScope(ACTIVITY_SCOPE))
+        bindScope(currentScope)
     }
 
     fun showErrorDialog(error: Throwable, tryAgainAction: (() -> Unit)? = null) {

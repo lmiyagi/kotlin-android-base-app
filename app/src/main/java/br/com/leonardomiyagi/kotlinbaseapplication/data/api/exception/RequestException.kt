@@ -50,7 +50,7 @@ class RequestException private constructor(val errorCode: Int?,
         return errorType == ErrorType.TIMEOUT || HttpError.getErrorForCode(errorCode) == HttpError.TIMEOUT
     }
 
-    private enum class ErrorType {
+    enum class ErrorType {
         HTTP, NETWORK, UNEXPECTED, TIMEOUT
     }
 

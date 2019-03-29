@@ -6,11 +6,11 @@ import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.BaseAc
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.setVisibility
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.view_loading.*
-import org.koin.android.ext.android.inject
+import org.koin.androidx.scope.currentScope
 
 class MainActivity : BaseActivity(), MainContract.View {
 
-    private val presenter: MainContract.Presenter by inject()
+    private val presenter: MainContract.Presenter by currentScope.inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
