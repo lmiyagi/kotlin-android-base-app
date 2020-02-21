@@ -27,13 +27,13 @@ val apiModule = module {
         }
     }
 
-    single<Interceptor> {
+    single<Interceptor>(named(D_LOGGING_INTERCEPTOR)) {
         HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     }
 
-    single<OkHttpClient> {
+    single {
         OkHttpClient.Builder()
-                .addNetworkInterceptor(get())
+                .addNetworkInterceptor(get<Interceptor>(named(D_LOGGING_INTERCEPTOR)))
                 .build()
     }
 
