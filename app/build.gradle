@@ -13,6 +13,11 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+
+        // App Bundle Naming
+        def date = new Date()
+        def formattedDate = date.format('-yyyy.MM.dd-HH.mm')
+        setProperty("archivesBaseName", applicationId + "-v" + versionName + "(" + versionCode + ")" + formattedDate)
     }
     buildTypes {
         release {
@@ -36,7 +41,7 @@ android {
             def date = new Date()
             def formattedDate = date.format('yyyy.MM.dd-HH.mm')
             System.out.println(formattedDate)
-            outputFileName = applicationId + "-" + formattedDate + "-v" + versionCode + "n" + versionName + ".apk"
+            outputFileName = applicationId + "-v" + versionName + "(" + versionCode + ")" + formattedDate + ".apk"
         }
     }
     buildToolsVersion '29.0.3'
