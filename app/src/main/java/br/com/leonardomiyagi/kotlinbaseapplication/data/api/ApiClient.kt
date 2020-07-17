@@ -1,48 +1,48 @@
 package br.com.leonardomiyagi.kotlinbaseapplication.data.api
 
+import br.com.leonardomiyagi.kotlinbaseapplication.data.api.exception.NullResponseException
 import br.com.leonardomiyagi.kotlinbaseapplication.data.api.exception.RequestException
-import io.reactivex.Single
-import io.reactivex.SingleTransformer
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import retrofit2.Response
 import java.io.IOException
 import java.net.SocketTimeoutException
-import java.util.concurrent.TimeUnit
 
 /**
  * Created by lmiyagi on 11/8/17.
  */
 class ApiClient(val apiService: ApiService) {
 
-    private fun <T> verifyResponseException(): SingleTransformer<Response<T>, Response<T>> {
-        return SingleTransformer { upstream ->
-            upstream.doOnSuccess { response ->
-                if (!response.isSuccessful) {
-                    throw RequestException.httpError(response.code(), response.message())
+    suspend fun getMessage(): String {
+        return coroutineScope {
+            delay(3000L)
+            "This message is coming from the API!"
+        }
+    }
+
+    suspend fun getExample(): String {
+        return makeRequest { apiService.getExamples() }
+    }
+
+    private suspend fun <T> makeRequest(response: suspend () -> Response<T>): T {
+        return coroutineScope {
+            try {
+                response().run {
+                    if (isSuccessful) {
+                        body() ?: throw NullResponseException()
+                    } else {
+                        throw RequestException.httpError(code(), message())
+                    }
+                }
+            } catch (exception: Exception) {
+                throw when (exception) {
+                    is NullResponseException -> exception
+                    is RequestException -> exception
+                    is SocketTimeoutException -> RequestException.timeoutError(exception)
+                    is IOException -> RequestException.networkError(exception)
+                    else -> RequestException.unexpectedError(exception)
                 }
             }
         }
-    }
-
-    private fun <T> verifyRequestException(): SingleTransformer<Response<T>, Response<T>> {
-        return SingleTransformer { upstream ->
-            upstream.onErrorResumeNext { t ->
-                when (t) {
-                    is RequestException -> Single.error(t)
-                    is SocketTimeoutException -> Single.error(RequestException.timeoutError(t))
-                    is IOException -> Single.error(RequestException.networkError(t))
-                    else -> Single.error(RequestException.unexpectedError(t))
-                }
-            }
-        }
-    }
-
-    private fun <T> unwrap(): SingleTransformer<Response<T>, T> {
-        return SingleTransformer { upstream ->
-            upstream.map(Response<T>::body)
-        }
-    }
-
-    fun getMessage(): Single<String> {
-        return Single.just("This message is coming from the API!").delay(3, TimeUnit.SECONDS)
     }
 }

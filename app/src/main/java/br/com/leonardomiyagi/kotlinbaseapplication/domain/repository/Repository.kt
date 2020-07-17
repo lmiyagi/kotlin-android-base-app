@@ -7,5 +7,6 @@ import io.reactivex.Single
  */
 interface Repository {
 
-    fun getMessage(): Single<String>
+    suspend fun getExample(): String
+    suspend fun getMessage(): String
 }
