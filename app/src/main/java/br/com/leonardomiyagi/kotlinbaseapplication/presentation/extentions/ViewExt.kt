@@ -1,4 +1,4 @@
-package br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils
+package br.com.leonardomiyagi.kotlinbaseapplication.presentation.extentions
 
 import android.view.View
 

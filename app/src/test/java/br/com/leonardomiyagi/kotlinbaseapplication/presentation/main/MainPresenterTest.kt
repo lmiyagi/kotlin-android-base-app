@@ -16,7 +16,7 @@ import org.mockito.junit.MockitoJUnitRunner
  * Created by lmiyagi on 09/04/18.
  */
 @RunWith(MockitoJUnitRunner::class)
-class MainPresenterTest : BasePresenterTest<MainContract.View, MainPresenter>() {
+class MainPresenterTest : BasePresenterTest<MainContract.View, MainViewModel>() {
 
     @Mock
     private lateinit var getMainMessage: GetMainMessage
@@ -24,7 +24,7 @@ class MainPresenterTest : BasePresenterTest<MainContract.View, MainPresenter>() 
     private lateinit var view: MainContract.View
 
     override fun setUp() {
-        super.setupPresenter(view, MainPresenter(getMainMessage))
+        super.setupPresenter(view, MainViewModel(getMainMessage))
     }
 
     override fun tearDown() {

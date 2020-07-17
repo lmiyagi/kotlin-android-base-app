@@ -2,41 +2,30 @@ package br.com.leonardomiyagi.kotlinbaseapplication.presentation.main
 
 import android.os.Bundle
 import br.com.leonardomiyagi.kotlinbaseapplication.R
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.BaseActivity
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.setVisibility
+import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.RequestActivity
+import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.RequestViewModel
+import br.com.leonardomiyagi.kotlinbaseapplication.presentation.extentions.observeDirectly
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.view_loading.*
-import org.koin.androidx.scope.currentScope
+import org.koin.androidx.scope.lifecycleScope
+import org.koin.androidx.viewmodel.scope.viewModel
 
-class MainActivity : BaseActivity(), MainContract.View {
+class MainActivity : RequestActivity() {
 
-    private val presenter: MainContract.Presenter by currentScope.inject()
+    override val requestViewModel: RequestViewModel get() = viewModel
+
+    private val viewModel by lifecycleScope.viewModel<MainViewModel>(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        presenter.attachView(this)
     }
 
-    override fun onDestroy() {
-        presenter.detachView()
-        super.onDestroy()
+    override fun setupObservers() {
+        super.setupObservers()
+        viewModel.messageLiveData.observeDirectly(this, ::renderMessage)
     }
 
-    override fun renderMessage(message: String) {
+    private fun renderMessage(message: String) {
         messageTextView.text = message
-    }
-
-    override fun showLoading() {
-        loadingContainer.setVisibility(true)
-    }
-
-    override fun hideLoading() {
-        loadingContainer.setVisibility(false)
-    }
-
-    override fun showError(error: Throwable, tryAgainAction: (() -> Unit)?) {
-        showErrorDialog(error, tryAgainAction)
     }
 }

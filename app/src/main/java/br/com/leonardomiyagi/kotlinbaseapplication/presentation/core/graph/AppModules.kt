@@ -1,12 +1,20 @@
 package br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.graph
 
-import br.com.leonardomiyagi.kotlinbaseapplication.BuildConfig
 import br.com.leonardomiyagi.kotlinbaseapplication.data.api.ApiClient
 import br.com.leonardomiyagi.kotlinbaseapplication.data.api.ApiService
+import br.com.leonardomiyagi.kotlinbaseapplication.data.repository.DefaultRepository
+import br.com.leonardomiyagi.kotlinbaseapplication.domain.main.GetMainMessage
+import br.com.leonardomiyagi.kotlinbaseapplication.domain.repository.Repository
+import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.BaseViewModel
+import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.RequestViewModel
+import br.com.leonardomiyagi.kotlinbaseapplication.presentation.main.MainActivity
+import br.com.leonardomiyagi.kotlinbaseapplication.presentation.main.MainViewModel
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.*
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.BuildConfig
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -16,6 +24,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 /**
  * Created by lmiyagi on 11/8/17.
  */
+val appModule = module {
+
+    single<Repository> { DefaultRepository(get()) }
+}
+
 val apiModule = module {
 
     single(named(D_API_BASE_URL)) {
@@ -49,4 +62,12 @@ val apiModule = module {
     single<ApiService> { get<Retrofit>().create(ApiService::class.java) }
 
     single { ApiClient(get()) }
+}
+
+val mainModule = module {
+
+    scope(named<MainActivity>()) {
+        scoped { GetMainMessage(get()) }
+        viewModel { MainViewModel(get()) }
+    }
 }

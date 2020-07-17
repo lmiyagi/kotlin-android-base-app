@@ -1,10 +1,6 @@
 package br.com.leonardomiyagi.kotlinbaseapplication.core
 
 import br.com.leonardomiyagi.kotlinbaseapplication.domain.provider.SchedulerProvider
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.BaseContract
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.base.BasePresenter
-import io.reactivex.Scheduler
-import io.reactivex.schedulers.Schedulers
 import org.junit.After
 import org.junit.Before
 import org.koin.dsl.module.module

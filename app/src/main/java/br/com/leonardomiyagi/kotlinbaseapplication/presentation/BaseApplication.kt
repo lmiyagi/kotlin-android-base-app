@@ -3,7 +3,7 @@ package br.com.leonardomiyagi.kotlinbaseapplication.presentation
 import android.app.Application
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.graph.apiModule
 import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.graph.appModule
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.main.mainModule
+import br.com.leonardomiyagi.kotlinbaseapplication.presentation.core.graph.mainModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
