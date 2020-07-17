@@ -1,44 +1,28 @@
 package br.com.leonardomiyagi.kotlinbaseapplication.domain.main
 
 import br.com.leonardomiyagi.kotlinbaseapplication.domain.repository.Repository
-import com.nhaarman.mockitokotlin2.doThrow
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
 import kotlin.test.assertNotNull
 
-/**
- * Created by lmiyagi on 10/04/18.
- */
 @RunWith(MockitoJUnitRunner::class)
-class GetMainMessageTest {
+class GetErrorExampleTest {
 
     @Mock
     private lateinit var repository: Repository
 
-    private lateinit var getMainMessage: GetMainMessage
+    private lateinit var getErrorExample: GetErrorExample
 
     @Before
     fun setUp() {
-        getMainMessage = GetMainMessage(repository)
-    }
-
-    @Test
-    fun `get the expected result from the repository`() {
-        runBlocking {
-            val expectedResult = "This is the expected result."
-            `when`(repository.getMessage()).thenReturn(expectedResult)
-
-            val message = repository.getMessage()
-            assertNotNull(message)
-            assertEquals(message, expectedResult)
-        }
+        getErrorExample = GetErrorExample(repository)
     }
 
     @Test
@@ -46,9 +30,9 @@ class GetMainMessageTest {
         runBlocking {
             val errorMessage = "This error is intended"
             val error = Throwable(errorMessage)
-            `when`(repository.getMessage()).thenThrow(error)
+            Mockito.`when`(repository.getErrorExample()).thenThrow(error)
 
-            val errorAction = assertFails { repository.getMessage() }
+            val errorAction = assertFails { repository.getErrorExample() }
             assertNotNull(errorAction)
             assertNotNull(errorAction.message)
             assertEquals(error, errorAction)

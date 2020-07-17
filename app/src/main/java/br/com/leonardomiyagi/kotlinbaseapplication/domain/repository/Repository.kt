@@ -7,6 +7,8 @@ import io.reactivex.Single
  */
 interface Repository {
 
+    @Throws(Throwable::class)
     suspend fun getErrorExample(): String
+    @Throws(Throwable::class)
     suspend fun getMessage(): String
 }
