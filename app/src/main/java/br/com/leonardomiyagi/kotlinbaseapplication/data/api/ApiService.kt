@@ -9,5 +9,5 @@ import retrofit2.http.GET
 interface ApiService {
 
     @GET("/examples")
-    fun getExamples(): Response<String>
+    suspend fun getExamples(): Response<String>
 }

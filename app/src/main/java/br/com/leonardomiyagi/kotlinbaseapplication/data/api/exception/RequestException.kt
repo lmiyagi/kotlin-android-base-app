@@ -50,6 +50,14 @@ class RequestException private constructor(val errorCode: Int?,
         return errorType == ErrorType.TIMEOUT || HttpError.getErrorForCode(errorCode) == HttpError.TIMEOUT
     }
 
+    fun isNotFoundError(): Boolean {
+        return isHttpError() && HttpError.getErrorForCode(errorCode) == HttpError.NOT_FOUND
+    }
+
+    fun isServerInternalError(): Boolean {
+        return isHttpError() && HttpError.getErrorForCode(errorCode) == HttpError.INTERNAL_SERVER_ERROR
+    }
+
     enum class ErrorType {
         HTTP, NETWORK, UNEXPECTED, TIMEOUT
     }

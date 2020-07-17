@@ -15,4 +15,7 @@
     <string name="error_not_found">Data not found.</string>
     <string name="error_server_internal">An error occurred on the server side. Please try again later. If the problem persists, please contact us.</string>
     <string name="error_network">There was a network error. Make sure you have internet connection and try again.</string>
+
+    <!-- TODO remove this text -->
+    <string name="text_simulate_request_error">Simulate Request Error</string>
 </resources>

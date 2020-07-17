@@ -29,17 +29,17 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    protected fun showErrorDialog(error: Throwable, tryAgainAction: (() -> Unit)? = null) {
+    protected open fun showErrorDialog(error: Throwable, tryAgainAction: (() -> Unit)? = null) {
         DialogUtils.showErrorDialog(this, error, tryAgainAction)
     }
 
-    protected fun showDialog(title: String,
-                             message: String,
-                             positiveMessage: String = getString(R.string.global_ok),
-                             positiveAction: (() -> Unit)? = null,
-                             negativeMessage: String? = null,
-                             negativeAction: (() -> Unit)? = null,
-                             cancelAction: (() -> Unit)? = null) {
+    protected open fun showDialog(title: String,
+                                  message: String,
+                                  positiveMessage: String = getString(R.string.global_ok),
+                                  positiveAction: (() -> Unit)? = null,
+                                  negativeMessage: String? = null,
+                                  negativeAction: (() -> Unit)? = null,
+                                  cancelAction: (() -> Unit)? = null) {
         DialogUtils.showDialog(this,
                 title,
                 message,
@@ -50,13 +50,13 @@ abstract class BaseActivity : AppCompatActivity() {
                 cancelAction)
     }
 
-    protected fun showDialog(@StringRes title: Int,
-                             @StringRes message: Int,
-                             @StringRes positiveMessage: Int = R.string.global_ok,
-                             positiveAction: (() -> Unit)? = null,
-                             @StringRes negativeMessage: Int? = null,
-                             negativeAction: (() -> Unit)? = null,
-                             cancelAction: (() -> Unit)? = null) {
+    protected open fun showDialog(@StringRes title: Int,
+                                  @StringRes message: Int,
+                                  @StringRes positiveMessage: Int = R.string.global_ok,
+                                  positiveAction: (() -> Unit)? = null,
+                                  @StringRes negativeMessage: Int? = null,
+                                  negativeAction: (() -> Unit)? = null,
+                                  cancelAction: (() -> Unit)? = null) {
         showDialog(getString(title),
                 getString(message),
                 getString(positiveMessage),

@@ -8,8 +8,8 @@ import br.com.leonardomiyagi.kotlinbaseapplication.domain.repository.Repository
  */
 class DefaultRepository constructor(private val apiClient: ApiClient) : Repository {
 
-    override suspend fun getExample(): String {
-        return apiClient.getExample()
+    override suspend fun getErrorExample(): String {
+        return apiClient.getErrorExample()
     }
 
     override suspend fun getMessage(): String {

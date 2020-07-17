@@ -11,17 +11,22 @@ import java.net.SocketTimeoutException
 /**
  * Created by lmiyagi on 11/8/17.
  */
-class ApiClient(val apiService: ApiService) {
+class ApiClient(private val apiService: ApiService) {
 
     suspend fun getMessage(): String {
+        // TODO remove this example
         return coroutineScope {
             delay(3000L)
             "This message is coming from the API!"
         }
     }
 
-    suspend fun getExample(): String {
-        return makeRequest { apiService.getExamples() }
+    suspend fun getErrorExample(): String {
+        // TODO remove this error example
+        return coroutineScope {
+            delay(3000L)
+            throw   RequestException.httpError(500, "Internal server error")
+        }
     }
 
     private suspend fun <T> makeRequest(response: suspend () -> Response<T>): T {
@@ -35,6 +40,7 @@ class ApiClient(val apiService: ApiService) {
                     }
                 }
             } catch (exception: Exception) {
+                exception.printStackTrace()
                 throw when (exception) {
                     is NullResponseException -> exception
                     is RequestException -> exception

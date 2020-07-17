@@ -18,11 +18,18 @@ class MainActivity : RequestActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setupClickListeners()
     }
 
     override fun setupObservers() {
         super.setupObservers()
         viewModel.messageLiveData.observeDirectly(this, ::renderMessage)
+    }
+
+    private fun setupClickListeners() {
+        simulateErrorButton.setOnClickListener {
+            viewModel.onSimulateErrorClicked()
+        }
     }
 
     private fun renderMessage(message: String) {
