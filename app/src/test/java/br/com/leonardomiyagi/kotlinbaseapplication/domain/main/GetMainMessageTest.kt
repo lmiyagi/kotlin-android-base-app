@@ -1,7 +1,6 @@
 package br.com.leonardomiyagi.kotlinbaseapplication.domain.main
 
 import br.com.leonardomiyagi.kotlinbaseapplication.domain.repository.Repository
-import com.nhaarman.mockitokotlin2.doThrow
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
